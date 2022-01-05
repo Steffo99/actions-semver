@@ -55,3 +55,4 @@ runs:
         echo "Major version is: $major"
         test -n "$major"
         echo "::set-output name=major::$major"
+      shell: bash

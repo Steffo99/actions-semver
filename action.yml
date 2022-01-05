@@ -1,0 +1,57 @@
+name: "Semantic version from release"
+author: "@Steffo99"
+description: "Find the semantic version of a release from its tag name."
+branding:
+  icon: "tag"
+  color: "#0d1117"
+  
+outputs:
+  tag:
+    description: "The complete tag of the release, including the v, such as `v1.2.3-final`."ù
+    value: ${{ steps.semver.outputs.tag }}
+  full:
+    description: "The full tag of the release, excluding the v, such as `1.2.3-final`."
+    value: ${{ steps.semver.outputs.full }}
+  patch:
+    description: "The patch version of the release, excluding the extra metadata, such as `1.2.3`."
+    value: ${{ steps.semver.outputs.patch }}
+  minor:
+    description: "The minor version of the release, excluding the patch number, such as `1.2`."
+    value: ${{ steps.semver.outputs.minor }}
+  major:
+    description: "The major version of the release, excluding the minor number, such as `1`."
+    value: ${{ steps.semver.outputs.major }}
+
+runs:
+  using: composite
+  
+  steps:
+    - name: "❓ Find the release semantic version"
+      id: semver
+      run: |
+        set -e
+
+        tag=${{ github.event.release.tag_name }}
+        echo "Tag is: $tag"
+        test -n "$tag"
+        echo "::set-output name=tag::$tag"
+
+        full=$( echo $tag | grep -E --only-matching --max-count=1 '[0-9]+[.][0-9]+[.][0-9]+(-.*)?$' )
+        echo "Full version is: $full"
+        test -n "$full"
+        echo "::set-output name=full::$full"
+
+        patch=$( echo $full | grep -E --only-matching --max-count=1 '^[0-9]+[.][0-9]+[.][0-9]+' )
+        echo "Patch version is: $patch"
+        test -n "$patch"
+        echo "::set-output name=patch::$patch"
+
+        minor=$( echo $patch | grep -E --only-matching --max-count=1 '^[0-9]+[.][0-9]+' )
+        echo "Minor version is: $minor"
+        test -n "$minor"
+        echo "::set-output name=minor::$minor"
+
+        major=$( echo $minor | grep -E --only-matching --max-count=1 '^[0-9]+' )
+        echo "Major version is: $major"
+        test -n "$major"
+        echo "::set-output name=major::$major"

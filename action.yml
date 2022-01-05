@@ -7,7 +7,7 @@ branding:
   
 outputs:
   tag:
-    description: "The complete tag of the release, including the v, such as `v1.2.3-final`."ù
+    description: "The complete tag of the release, including the v, such as `v1.2.3-final`."
     value: ${{ steps.semver.outputs.tag }}
   full:
     description: "The full tag of the release, excluding the v, such as `1.2.3-final`."

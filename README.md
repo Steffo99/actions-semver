@@ -1,4 +1,4 @@
-# `steffo99/actions-semver`
+# `Steffo99/actions-semver`
 
 Github Action to parse GitHub Releases tag names into semantic versions
 

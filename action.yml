@@ -3,7 +3,7 @@ author: "@Steffo99"
 description: "Find the semantic version of a release from its tag name."
 branding:
   icon: "tag"
-  color: "#0d1117"
+  color: "blue"
   
 outputs:
   tag:

@@ -28,7 +28,7 @@ In a task building and publishing a Docker image on every published release:
 steps:
   - name: "❓ Find the release semantic version"
     id: semver
-    uses: Steffo99/actions-semver@v0.1.1
+    uses: Steffo99/actions-semver@v0.2.0
     with:
       string: ${{ github.event.release.tag_name }}
 

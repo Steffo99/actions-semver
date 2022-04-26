@@ -1,4 +1,4 @@
-name: "Semantic version from release"
+name: "Semantic version from string"
 author: "@Steffo99"
 description: "Split a string into its semantic version numbers."
 branding:

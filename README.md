@@ -10,13 +10,17 @@ This action has a single named input:
 
 ## Outputs
 
-This action has five named outputs:
+This action has nine named outputs:
 
-- `tag`: the complete tag of the release, including the v, such as `v1.2.3-final`.
-- `full`: the full tag of the release, excluding the v, such as `1.2.3-final`.
-- `patch`: the patch version of the release, excluding the extra metadata, such as `1.2.3`.
-- `minor`: the minor version of the release, excluding the patch number, such as `1.2`.
-- `major`: the major version of the release, excluding the minor number, such as `1`.
+- `full`: The full semantic version (`1.2.3-beta+ABCDEF`).
+- `precedence`: The semantic version with metadata excluded (`1.2.3-beta`).
+- `core`: The semantic version core (`1.2.3`).
+- `pair`: The semantic version core, excluding the patch version (`1.2`).
+- `major`: The major version (`1`).
+- `minor`: The minor version (`2`).
+- `patch`: The patch version (`3`).
+- `prerelease`: The pre-release field contents (`beta`).
+- `metadata`: The metadata field contents (`ABCDEF`).
 
 ## Example usage
 

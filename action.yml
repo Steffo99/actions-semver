@@ -1,3 +1,5 @@
+# https://semver.org/
+
 name: "Semantic version from string"
 author: "@Steffo99"
 description: "Split a string into its semantic version numbers."
@@ -11,21 +13,33 @@ inputs:
     required: true
 
 outputs:
-  tag:
-    description: "The complete tag of the release, including the v, such as `v1.2.3-final`."
-    value: ${{ steps.semver.outputs.tag }}
   full:
-    description: "The full tag of the release, excluding the v, such as `1.2.3-final`."
+    description: "The full semantic version (`1.2.3-beta+ABCDEF`)."
     value: ${{ steps.semver.outputs.full }}
-  patch:
-    description: "The patch version of the release, excluding the extra metadata, such as `1.2.3`."
-    value: ${{ steps.semver.outputs.patch }}
-  minor:
-    description: "The minor version of the release, excluding the patch number, such as `1.2`."
-    value: ${{ steps.semver.outputs.minor }}
+  precedence:
+    description: "The semantic version with metadata excluded (`1.2.3-beta`)."
+    value: ${{ steps.semver.outputs.precedence }}
+  core:
+    description: "The semantic version core (`1.2.3`)."
+    value: ${{ steps.semver.outputs.core }}
+  pair:
+    description: "The semantic version core, excluding the patch version (`1.2`)."
+    value: ${{ steps.semver.outputs.pair }}
   major:
-    description: "The major version of the release, excluding the minor number, such as `1`."
+    description: "The major version (`1`)."
     value: ${{ steps.semver.outputs.major }}
+  minor:
+    description: "The minor version (`2`)."
+    value: ${{ steps.semver.outputs.minor }}
+  patch:
+    description: "The patch version (`3`)."
+    value: ${{ steps.semver.outputs.patch }}
+  prerelease:
+    description: "The pre-release field contents (`beta`)."
+    value: ${{ steps.semver.outputs.prerelease }}
+  metadata:
+    description: "The metadata field contents (`ABCDEF`)."
+    value: ${{ steps.semver.outputs.metadata }}
 
 runs:
   using: composite
@@ -36,28 +50,30 @@ runs:
       run: |
         set -e
 
-        tag=$INPUT_STRING
-        echo "Tag is: $tag"
-        test -n "$tag"
-        echo "::set-output name=tag::$tag"
+        regex='(((([0-9]+)[.]([0-9]+))[.]([0-9]+))(-([a-zA-Z0-9.]+))?)(\+([a-zA-Z0-9.]+))?'
 
-        full=$( echo $tag | grep -E --only-matching --max-count=1 '[0-9]+[.][0-9]+[.][0-9]+(-.*)?$' )
-        echo "Full version is: $full"
-        test -n "$full"
-        echo "::set-output name=full::$full"
+        if [[ $INPUT_STRING =~ $regex ]]
+        then
+          echo "full: ${BASH_REMATCH[0]}"
+          echo "precedence: ${BASH_REMATCH[1]}"
+          echo "core: ${BASH_REMATCH[2]}"
+          echo "pair: ${BASH_REMATCH[3]}"
+          echo "major: ${BASH_REMATCH[4]}"
+          echo "minor: ${BASH_REMATCH[5]}"
+          echo "patch: ${BASH_REMATCH[6]}"
+          echo "prerelease: ${BASH_REMATCH[8]}"
+          echo "metadata: ${BASH_REMATCH[10]}"
 
-        patch=$( echo $full | grep -E --only-matching --max-count=1 '^[0-9]+[.][0-9]+[.][0-9]+' )
-        echo "Patch version is: $patch"
-        test -n "$patch"
-        echo "::set-output name=patch::$patch"
-
-        minor=$( echo $patch | grep -E --only-matching --max-count=1 '^[0-9]+[.][0-9]+' )
-        echo "Minor version is: $minor"
-        test -n "$minor"
-        echo "::set-output name=minor::$minor"
-
-        major=$( echo $minor | grep -E --only-matching --max-count=1 '^[0-9]+' )
-        echo "Major version is: $major"
-        test -n "$major"
-        echo "::set-output name=major::$major"
+          echo "::set-output name=full::${BASH_REMATCH[0]}"
+          echo "::set-output name=precedence::${BASH_REMATCH[1]}"
+          echo "::set-output name=core::${BASH_REMATCH[2]}"
+          echo "::set-output name=pair::${BASH_REMATCH[3]}"
+          echo "::set-output name=major::${BASH_REMATCH[4]}"
+          echo "::set-output name=minor::${BASH_REMATCH[5]}"
+          echo "::set-output name=patch::${BASH_REMATCH[6]}"
+          echo "::set-output name=prerelease::${BASH_REMATCH[8]}"
+          echo "::set-output name=metadata::${BASH_REMATCH[10]}"
+        else
+          exit 1
+        fi
       shell: bash

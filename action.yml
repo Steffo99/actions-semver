@@ -1,10 +1,15 @@
 name: "Semantic version from release"
 author: "@Steffo99"
-description: "Find the semantic version of a release from its tag name."
+description: "Split a string into its semantic version numbers."
 branding:
   icon: "tag"
   color: "blue"
-  
+
+inputs:
+  string:
+    description: "The string to split into semantic version numbers."
+    required: true
+
 outputs:
   tag:
     description: "The complete tag of the release, including the v, such as `v1.2.3-final`."
@@ -31,7 +36,7 @@ runs:
       run: |
         set -e
 
-        tag=${{ github.event.release.tag_name }}
+        tag=$INPUT_STRING
         echo "Tag is: $tag"
         test -n "$tag"
         echo "::set-output name=tag::$tag"

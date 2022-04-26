@@ -1,14 +1,12 @@
 # `Steffo99/actions-semver`
 
-Github Action to parse GitHub Releases tag names into semantic versions
-
-## Captures
-
-This action, when triggered on a `release` event, will capture the name of the release tag (for example, `v1.2.3-final`, located at `github.event.release.tag_name`).
+Github Action to parse strings into semantic version numbers
 
 ## Inputs
 
-This action has no named inputs.
+This action has a single named input:
+
+- `string`: the string to split into semantic version numbers.
 
 ## Outputs
 
@@ -31,6 +29,8 @@ steps:
   - name: "❓ Find the release semantic version"
     id: semver
     uses: Steffo99/actions-semver@v0.1.1
+    with:
+      string: ${{ github.event.release.tag_name }}
 
   - name: "🔨 Setup Buildx"
     uses: docker/setup-buildx-action@v1

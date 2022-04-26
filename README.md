@@ -50,12 +50,11 @@ steps:
     uses: docker/build-push-action@v2
     with:
       tags: >-
-        ghcr.io/ryghub/impressive-strawberry:${{ steps.semver.outputs.full }},
-        ghcr.io/ryghub/impressive-strawberry:${{ steps.semver.outputs.patch }},
-        ghcr.io/ryghub/impressive-strawberry:${{ steps.semver.outputs.minor }},
+        ghcr.io/ryghub/impressive-strawberry:${{ steps.semver.outputs.core }},
+        ghcr.io/ryghub/impressive-strawberry:${{ steps.semver.outputs.pair }},
         ghcr.io/ryghub/impressive-strawberry:${{ steps.semver.outputs.major }},
         ghcr.io/ryghub/impressive-strawberry:latest
       push: true
-    
+
 # ...
 ```

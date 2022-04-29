@@ -49,10 +49,12 @@ runs:
       id: semver
       run: |
         set -e
+        
+        echo "Input string: ${INPUT_STRING}" 
 
         regex='(((([0-9]+)[.]([0-9]+))[.]([0-9]+))(-([a-zA-Z0-9.]+))?)(\+([a-zA-Z0-9.]+))?'
 
-        if [[ $INPUT_STRING =~ $regex ]]
+        if [[ ${INPUT_STRING} =~ $regex ]]
         then
           echo "full: ${BASH_REMATCH[0]}"
           echo "precedence: ${BASH_REMATCH[1]}"
@@ -74,6 +76,7 @@ runs:
           echo "::set-output name=prerelease::${BASH_REMATCH[8]}"
           echo "::set-output name=metadata::${BASH_REMATCH[10]}"
         else
+          echo "Failed to detect a semantic version in: ${INPUT_STRING}"
           exit 1
         fi
       shell: bash

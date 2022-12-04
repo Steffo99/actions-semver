@@ -67,15 +67,15 @@ runs:
           echo "prerelease: ${BASH_REMATCH[8]}"
           echo "metadata: ${BASH_REMATCH[10]}"
 
-          echo "::set-output name=full::${BASH_REMATCH[0]}"
-          echo "::set-output name=precedence::${BASH_REMATCH[1]}"
-          echo "::set-output name=core::${BASH_REMATCH[2]}"
-          echo "::set-output name=pair::${BASH_REMATCH[3]}"
-          echo "::set-output name=major::${BASH_REMATCH[4]}"
-          echo "::set-output name=minor::${BASH_REMATCH[5]}"
-          echo "::set-output name=patch::${BASH_REMATCH[6]}"
-          echo "::set-output name=prerelease::${BASH_REMATCH[8]}"
-          echo "::set-output name=metadata::${BASH_REMATCH[10]}"
+          echo "full=${BASH_REMATCH[0]}" >> $GITHUB_OUTPUT
+          echo "precedence=${BASH_REMATCH[1]}" >> $GITHUB_OUTPUT
+          echo "core=${BASH_REMATCH[2]}" >> $GITHUB_OUTPUT
+          echo "pair=${BASH_REMATCH[3]}" >> $GITHUB_OUTPUT
+          echo "major=${BASH_REMATCH[4]}" >> $GITHUB_OUTPUT
+          echo "minor=${BASH_REMATCH[5]}" >> $GITHUB_OUTPUT
+          echo "patch=${BASH_REMATCH[6]}" >> $GITHUB_OUTPUT
+          echo "prerelease=${BASH_REMATCH[8]}" >> $GITHUB_OUTPUT
+          echo "metadata=${BASH_REMATCH[10]}" >> $GITHUB_OUTPUT
         else
           echo "Failed to detect a semantic version."
           exit 1

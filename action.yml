@@ -45,7 +45,8 @@ runs:
   using: composite
   
   steps:
-    - name: "❓ Find the release semantic version"
+    - 
+      name: "Determine the semantic version numbers"
       id: semver
       run: |
         set -e

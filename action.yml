@@ -1,7 +1,7 @@
 # https://semver.org/
 
 name: "Semantic version from string"
-author: "@Steffo99"
+author: "Stefano Pigozzi <me@steffo.eu>"
 description: "Split a string into its semantic version numbers."
 branding:
   icon: "tag"

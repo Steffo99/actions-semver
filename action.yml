@@ -46,6 +46,7 @@ runs:
     - 
       name: "Determine the semantic version numbers"
       id: semver
+      shell: bash
       run: |-
         set -e
 
@@ -79,4 +80,3 @@ runs:
           echo "Failed to detect a semantic version."
           exit 1
         fi
-      shell: bash

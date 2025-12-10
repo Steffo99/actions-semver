@@ -10,35 +10,6 @@ inputs:
     description: "The string to split into semantic version numbers."
     required: true
 
-outputs:
-  full:
-    description: "The full semantic version (`1.2.3-beta+ABCDEF`)."
-    value: ${{ steps.semver.outputs.full }}
-  precedence:
-    description: "The semantic version with metadata excluded (`1.2.3-beta`)."
-    value: ${{ steps.semver.outputs.precedence }}
-  core:
-    description: "The semantic version core (`1.2.3`)."
-    value: ${{ steps.semver.outputs.core }}
-  pair:
-    description: "The semantic version core, excluding the patch version (`1.2`)."
-    value: ${{ steps.semver.outputs.pair }}
-  major:
-    description: "The major version (`1`)."
-    value: ${{ steps.semver.outputs.major }}
-  minor:
-    description: "The minor version (`2`)."
-    value: ${{ steps.semver.outputs.minor }}
-  patch:
-    description: "The patch version (`3`)."
-    value: ${{ steps.semver.outputs.patch }}
-  prerelease:
-    description: "The pre-release field contents (`beta`)."
-    value: ${{ steps.semver.outputs.prerelease }}
-  metadata:
-    description: "The metadata field contents (`ABCDEF`)."
-    value: ${{ steps.semver.outputs.metadata }}
-
 runs:
   using: composite
   
@@ -80,3 +51,32 @@ runs:
           echo "Failed to detect a semantic version."
           exit 1
         fi
+
+outputs:
+  full:
+    description: "The full semantic version (`1.2.3-beta+ABCDEF`)."
+    value: ${{ steps.semver.outputs.full }}
+  precedence:
+    description: "The semantic version with metadata excluded (`1.2.3-beta`)."
+    value: ${{ steps.semver.outputs.precedence }}
+  core:
+    description: "The semantic version core (`1.2.3`)."
+    value: ${{ steps.semver.outputs.core }}
+  pair:
+    description: "The semantic version core, excluding the patch version (`1.2`)."
+    value: ${{ steps.semver.outputs.pair }}
+  major:
+    description: "The major version (`1`)."
+    value: ${{ steps.semver.outputs.major }}
+  minor:
+    description: "The minor version (`2`)."
+    value: ${{ steps.semver.outputs.minor }}
+  patch:
+    description: "The patch version (`3`)."
+    value: ${{ steps.semver.outputs.patch }}
+  prerelease:
+    description: "The pre-release field contents (`beta`)."
+    value: ${{ steps.semver.outputs.prerelease }}
+  metadata:
+    description: "The metadata field contents (`ABCDEF`)."
+    value: ${{ steps.semver.outputs.metadata }}

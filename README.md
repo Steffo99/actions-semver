@@ -1,60 +1,77 @@
-# `Steffo99/actions-semver`
+<div align="center">
+<img alt="" src="https://forge.steffo.eu/steffo/actions-semver/raw/branch/main/.media/icon-512.png" height="128" style="border-radius: 100%;">
+<hgroup>
+<h1>actions-semver</h1>
+<p>Action to parse strings into semantic version numbers</p>
+</hgroup>
+</div>
 
-Github Action to parse strings into semantic version numbers
+## Links
 
-## Inputs
+### Tools
 
-This action has a single named input:
+<a href="https://yaml.org/">
+  <img alt="Written in YAML" title="Written in YAML" src="https://img.shields.io/badge/language-yaml-005a9c" height="30px">
+</a>
 
-- `string`: the string to split into semantic version numbers.
+### Packaging
 
-## Outputs
+<a href="https://github.com/marketplace/actions/semantic-version-from-string">
+  <img alt="Available on GitHub Marketplace" title="Available on GitHub Marketplace" src="https://img.shields.io/badge/github%20marketplace-available-0366d6" height="30px">
+</a>
 
-This action has nine named outputs:
+### Documentation
 
-- `full`: The full semantic version (`1.2.3-beta+ABCDEF`).
-- `precedence`: The semantic version with metadata excluded (`1.2.3-beta`).
-- `core`: The semantic version core (`1.2.3`).
-- `pair`: The semantic version core, excluding the patch version (`1.2`).
-- `major`: The major version (`1`).
-- `minor`: The minor version (`2`).
-- `patch`: The patch version (`3`).
-- `prerelease`: The pre-release field contents (`beta`).
-- `metadata`: The metadata field contents (`ABCDEF`).
+<a href="https://forge.steffo.eu/steffo/actions-semver/wiki">
+  <img alt="Documentation available" title="Documentation available" src="https://img.shields.io/website?url=https%3A%2F%2Fforge.steffo.eu%2Fsteffo%2Factions-semver%2Fwiki&up_color=175d36&up_message=available&down_message=error&label=documentation" height="30px">
+</a>
+&hairsp;
+<a href="https://interoperable-europe.ec.europa.eu/collection/eupl/eupl-text-eupl-12">
+  <img alt="Licensed under EUPL-1.2" title="Licensed under EUPL-1.2" src="https://img.shields.io/badge/license-EUPL--1.2-003399" height="30px">
+</a>
 
-## Example usage
+### Development
 
-In a task building and publishing a Docker image on every published release:
+#### Forgejo main repository
 
-```yaml
-# ...
+<a href="https://forge.steffo.eu/steffo/actions-semver">
+  <img alt="Code repository" title="Code repository" src="https://img.shields.io/gitea/last-commit/steffo/actions-semver?gitea_url=https%3A%2F%2Fforge.steffo.eu&color=374351" height="30px">
+</a>
+&hairsp;
+<a href="https://forge.steffo.eu/steffo/actions-semver/releases">
+  <img alt="Releases" title="Releases" src="https://img.shields.io/gitea/v/release/steffo/actions-semver?gitea_url=https%3A%2F%2Fforge.steffo.eu&label=last+release&color=374351" height="30px">
+</a>
+&hairsp;
+<a href="https://forge.steffo.eu/steffo/actions-semver/issues">
+  <img alt="Issues" title="Issues" src="https://img.shields.io/gitea/issues/open/steffo/actions-semver?gitea_url=https%3A%2F%2Fforge.steffo.eu&label=issues&color=374351" height="30px">
+</a>
+&hairsp;
+<a href="https://forge.steffo.eu/steffo/actions-semver/pulls">
+  <img alt="Pull requests" title="Pull requests" src="https://img.shields.io/gitea/pull-requests/open/steffo/actions-semver?gitea_url=https%3A%2F%2Fforge.steffo.eu&color=374351" height="30px">
+</a>
 
-steps:
-  - name: "❓ Find the release semantic version"
-    id: semver
-    uses: Steffo99/actions-semver@v0.2.0
-    with:
-      string: ${{ github.event.release.tag_name }}
+#### GitHub mirror
 
-  - name: "🔨 Setup Buildx"
-    uses: docker/setup-buildx-action@v1
-
-  - name: "🔑 Login to GitHub Containers"
-    uses: docker/login-action@v1
-    with:
-      registry: ghcr.io
-      username: RYGhub
-      password: ${{ secrets.GITHUB_TOKEN }}
-
-  - name: "🏗 Build and push the Docker image"
-    uses: docker/build-push-action@v2
-    with:
-      tags: >-
-        ghcr.io/ryghub/impressive-strawberry:${{ steps.semver.outputs.core }},
-        ghcr.io/ryghub/impressive-strawberry:${{ steps.semver.outputs.pair }},
-        ghcr.io/ryghub/impressive-strawberry:${{ steps.semver.outputs.major }},
-        ghcr.io/ryghub/impressive-strawberry:latest
-      push: true
-
-# ...
-```
+<a href="https://github.com/Steffo99/actions-semver">
+	<img alt="GitHub mirror" title="GitHub mirror" src="https://img.shields.io/github/last-commit/Steffo99/actions-semver?color=f0f6fc&style=flat" height="30px">
+</a>
+&hairsp;
+<a href="https://github.com/Steffo99/actions-semver/releases">
+	<img alt="Releases" title="Releases" src="https://img.shields.io/github/v/release/Steffo99/actions-semver?color=f0f6fc&style=flat&label=last+release" height="30px">
+</a>
+&hairsp;
+<a href="https://github.com/Steffo99/actions-semver/issues">
+	<img alt="Issues" title="Issues" src="https://img.shields.io/github/issues/Steffo99/actions-semver?color=f0f6fc" height="30px">
+</a>
+&hairsp;
+<a href="https://github.com/Steffo99/actions-semver/pulls">
+	<img alt="Pull requests" title="Pull requests" src="https://img.shields.io/github/issues-pr/Steffo99/actions-semver?color=f0f6fc" height="30px">
+</a>
+&hairsp;
+<a href="https://github.com/Steffo99/actions-semver/stargazers">
+	<img alt="Stars" title="Stars" src="https://img.shields.io/github/stars/Steffo99/actions-semver?color=f0f6fc&style=flat" height="30px">
+</a>
+&hairsp;
+<a href="https://github.com/Steffo99/actions-semver/network">
+	<img alt="Forks" title="Forks" src="https://img.shields.io/github/forks/Steffo99/actions-semver?color=f0f6fc&style=flat" height="30px">
+</a>
